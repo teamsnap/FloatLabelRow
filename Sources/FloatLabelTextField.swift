@@ -28,6 +28,7 @@ import UIKit
     
     let animationDuration = 0.3
     var title = UILabel()
+    var overrideTintColorActiveColor = false
     
     // MARK:- Properties
     override public var accessibilityLabel:String! {
@@ -82,10 +83,26 @@ import UIKit
         }
     }
     
-    @IBInspectable public var titleActiveTextColor:UIColor! {
+    @IBInspectable public var titleActiveTextColor:UIColor? {
+        didSet {
+            overrideTintColorActiveColor = (titleActiveTextColour != nil)
+            
+            if overrideTintColorActiveColor {
+                titleCustomActiveTextColour = titleActiveTextColour
+            } else {
+                titleCustomActiveTextColour = tintColor
+            }
+        }
+    }
+    
+    /// The actual backing colour for the text field's active state. This is private
+    ///  in order to facilitate switching between a custom set active color using
+    ///  `titleActiveTextColour` and the default which is to respect and mirror
+    ///  the UIView.tintColor property.
+    private var titleCustomActiveTextColor: UIColor? {
         didSet {
             if isFirstResponder {
-                title.textColor = titleActiveTextColor
+                title.textColor = titleCustomActiveTextColor
             }
         }
     }
@@ -107,7 +124,7 @@ import UIKit
         setTitlePositionForTextAlignment()
         let isResp = isFirstResponder
         if isResp && !(text?.isEmpty ?? true) {
-            title.textColor = titleActiveTextColor
+            title.textColor = titleCustomActiveTextColor
         } else {
             title.textColor = titleTextColor
         }
@@ -119,6 +136,12 @@ import UIKit
             // Show
             showTitle(isResp)
         }
+    }
+    
+    override public func tintColorDidChange() {
+        super.tintColorDidChange()
+        
+        self.titleCustomActiveTextColor = tintColor
     }
     
     override public func textRect(forBounds bounds:CGRect) -> CGRect {
@@ -154,7 +177,7 @@ import UIKit
     // MARK:- Private Methods
     private func setup() {
         borderStyle = UITextBorderStyle.none
-        titleActiveTextColor = tintColor
+        titleCustomActiveTextColor = tintColor
         // Set up title label
         title.alpha = 0.0
         title.font = titleFont
