@@ -58,7 +58,7 @@ import UIKit
         }
     }
     
-    var titleFont: UIFont = .systemFont(ofSize: 12.0) {
+    public var titleFont: UIFont = .systemFont(ofSize: 12.0) {
         didSet {
             title.font = titleFont
             title.sizeToFit()
@@ -75,7 +75,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var titleTextColour:UIColor = .gray {
+    @IBInspectable public var titleTextColour:UIColor = .gray {
         didSet {
             if !isFirstResponder {
                 title.textColor = titleTextColour
@@ -83,7 +83,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var titleActiveTextColour:UIColor? {
+    @IBInspectable public var titleActiveTextColour:UIColor? {
         didSet {
             overrideTintColorActiveColor = (titleActiveTextColour != nil)
             
