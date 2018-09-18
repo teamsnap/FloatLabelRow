@@ -85,19 +85,19 @@ import UIKit
     
     @IBInspectable public var titleActiveTextColor:UIColor? {
         didSet {
-            overrideTintColorActiveColor = (titleActiveTextColour != nil)
+            overrideTintColorActiveColor = (titleActiveTextColor != nil)
             
             if overrideTintColorActiveColor {
-                titleCustomActiveTextColour = titleActiveTextColour
+                titleCustomActiveTextColor = titleActiveTextColor
             } else {
-                titleCustomActiveTextColour = tintColor
+                titleCustomActiveTextColor = tintColor
             }
         }
     }
     
-    /// The actual backing colour for the text field's active state. This is private
+    /// The actual backing color for the text field's active state. This is private
     ///  in order to facilitate switching between a custom set active color using
-    ///  `titleActiveTextColour` and the default which is to respect and mirror
+    ///  `titleActiveTextColor` and the default which is to respect and mirror
     ///  the UIView.tintColor property.
     private var titleCustomActiveTextColor: UIColor? {
         didSet {
