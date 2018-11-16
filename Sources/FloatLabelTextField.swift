@@ -24,7 +24,7 @@
 
 import UIKit
 
-@IBDesignable public class FloatLabelTextField: UITextField {
+public class FloatLabelTextField: UITextField {
     
     let animationDuration = 0.3
     var title = UILabel()
