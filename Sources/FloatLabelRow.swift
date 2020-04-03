@@ -69,7 +69,7 @@ open class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell where
         floatLabelTextField.attributedPlaceholder = NSAttributedString(string: row.title ?? "", attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         floatLabelTextField.text =  row.displayValueFor?(row.value)
         floatLabelTextField.isEnabled = !row.isDisabled
-        floatLabelTextField.titleTextColour = .lightGray
+        floatLabelTextField.titleTextColor = .lightGray
         floatLabelTextField.alpha = row.isDisabled ? 0.6 : 1
     }
     
@@ -130,7 +130,7 @@ open class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell where
         if let formatter = (row as? FormatterConformance)?.formatter, useFormatter {
             return textField?.isFirstResponder == true ? formatter.editingString(for: v) : formatter.string(for: v)
         }
-        return String(describing: v)
+        return row.displayValueFor?(v) ?? String(describing: v)
     }
     
     //MARK: TextFieldDelegate
