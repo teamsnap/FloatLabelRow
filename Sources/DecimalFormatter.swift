@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 import Eureka
-import Foundation
+import UIKit
 
 open class DecimalFormatter: NumberFormatter, FormatterProtocol {
     
